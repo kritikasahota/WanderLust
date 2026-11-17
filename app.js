@@ -27,6 +27,7 @@ const path = require("path");
 // Method-Override: Allows HTML forms to send PUT and DELETE requests because HTML forms natively support only GET and POST.
 const methodOverride = require("method-override");
 
+const ejsMate = require("ejs-mate");
 
 // ============================================================
 // 2. CONFIGURING EXPRESS APPLICATION
@@ -49,6 +50,9 @@ app.use(express.urlencoded({ extended: true }));
 // Middleware: Converts requests containing ?_method=PUT or ?_method=DELETE into actual PUT or DELETE requests.
 app.use(methodOverride("_method"));
 
+app.engine('ejs', ejsMate);
+
+app.use(express.static(path.join(__dirname, "/public")));
 
 // ============================================================
 // 3. CONNECTING NODE.JS WITH MONGODB
